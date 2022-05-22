@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+
+    <style>
+        .card {
+            /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s; */
+            width: 40%;
+            border: 1px solid black;
+            margin: 15px;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .flex-container {
+            display: flex;
+            /* background-color: DodgerBlue; */
+        }
+
+        .flex-container>div {
+            /* background-color: #f1f1f1; */
+            margin: 10px;
+            padding: 20px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Assignment</h3>
+        <button aria-label="load users" onclick="fetchUsers()">Show Users</button>
+        <div id="user-list" class="user-list-panel">
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script>
+
+    var fetchUsers = () => {
+        fetch("https://random-data-api.com/api/users/random_user?size=10")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                data.forEach(element => {
+                    // var html = '<div class="card">';
+                    //     html += element.first_name;
+                    //     html +='</div>';
+
+
+                    // User Card
+                    var userCard = document.createElement('div');
+                    userCard.className = "card flex-container";
+
+                    // Card Layout
+                    // Image container
+                    var imageContainer = document.createElement('div')
+
+                    var userImg = document.createElement('img');
+                    userImg.setAttribute('src', element.avatar);
+                    imageContainer.append(userImg);
+
+
+                    var userDetails = document.createElement('div')
+                    userDetails.innerHTML = element.first_name;
+
+                    userCard.append(imageContainer)
+                    userCard.append(userDetails)
+
+
+
+
+
+
+
+
+                    //userCard.append(userImg)    
+                    //userImg.innerHTML
+
+
+
+
+                    //var userCard = document.createElement('div')
+
+                    document.getElementById("user-list").appendChild(userCard)
+
+                });
+                // document.getElementById("user-list").add
+            })
+    }
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        //we ready baby
+        console.log("DOm is ready")
+
+    });
+</script>
