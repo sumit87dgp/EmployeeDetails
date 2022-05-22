@@ -8,6 +8,54 @@
     <title>Employee</title>
 
     <style>
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
         .card {
             width: 40%;
             border: 1px solid black;
@@ -37,15 +85,28 @@
         <h3>Assignment</h3>
         <button aria-label="load users" onclick="fetchUsers()">Show Users</button>
         <div id="user-list" class="user-list-panel">
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Some text in the Modal..</p>
+                </div>
+
+            </div>
+
+            <!-- This is how should the cards be lined up in the grid     -->
             <div class="card flex-container">
                 <div>
-                    <img src="./sg_pic.JPG" alt="some pic" srcset="" width="128" height="128" style="vertical-align:middle;" />
+                    <img src="./sg_pic.JPG" alt="some pic" srcset="" width="128" height="128"
+                        style="vertical-align:middle;" />
                 </div>
-                
+
                 <div>
                     <div class="heading" style="font-weight:bold">Sumit Saha</div>
                     <div>Senior Software Engineer</div>
-                    <button>Contact Info</button>
+                    <button id="myBtn">Contact Info</button>
                 </div>
             </div>
 
@@ -57,6 +118,31 @@
 
 </html>
 <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
     var fetchUsers = () => {
         fetch("https://random-data-api.com/api/users/random_user?size=10")
@@ -80,7 +166,7 @@
 
                     // Card Right Panel
                     var userDetails = document.createElement('div')
-                    
+
 
                     userDetails.innerHTML = element.first_name + " " + element.last_name;
 
@@ -92,7 +178,7 @@
                     document.getElementById("user-list").appendChild(userCard)
 
                 });
-                // document.getElementById("user-list").add
+
             })
     }
 </script>
